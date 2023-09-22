@@ -1,0 +1,428 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="IvbetoPruebaTecnicaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Artista">
+          <Key>
+            <PropertyRef Name="IdArtista" />
+          </Key>
+          <Property Name="IdArtista" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="AnioDebut" Type="int" />
+          <Property Name="Nacionalidad" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Disco">
+          <Key>
+            <PropertyRef Name="IdDisco" />
+          </Key>
+          <Property Name="IdDisco" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Titulo" Type="varchar" MaxLength="70" Nullable="false" />
+          <Property Name="Duracion" Type="float" Nullable="false" />
+          <Property Name="Anio" Type="int" Nullable="false" />
+          <Property Name="GeneroMusical" Type="varchar" MaxLength="20" />
+          <Property Name="IdDistribuidora" Type="int" />
+          <Property Name="IdArtista" Type="int" />
+          <Property Name="Disponibilidad" Type="int" />
+          <Property Name="Ventas" Type="int" />
+        </EntityType>
+        <EntityType Name="Distribuidora">
+          <Key>
+            <PropertyRef Name="IdDistribuidora" />
+          </Key>
+          <Property Name="IdDistribuidora" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Disco__IdArtista__1B0907CE">
+          <End Role="Artista" Type="Self.Artista" Multiplicity="0..1" />
+          <End Role="Disco" Type="Self.Disco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artista">
+              <PropertyRef Name="IdArtista" />
+            </Principal>
+            <Dependent Role="Disco">
+              <PropertyRef Name="IdArtista" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Disco__IdDistrib__1A14E395">
+          <End Role="Distribuidora" Type="Self.Distribuidora" Multiplicity="0..1" />
+          <End Role="Disco" Type="Self.Disco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Distribuidora">
+              <PropertyRef Name="IdDistribuidora" />
+            </Principal>
+            <Dependent Role="Disco">
+              <PropertyRef Name="IdDistribuidora" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ArtistaAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="AnioDebut" Type="int" Mode="In" />
+          <Parameter Name="Nacionalidad" Type="varchar" Mode="In" />
+          <Parameter Name="filasInsertadas" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="ArtistaDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdArtista" Type="int" Mode="In" />
+          <Parameter Name="filasEliminadas" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="ArtistaGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ArtistaGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdArtista" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ArtistaUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdArtista" Type="int" Mode="In" />
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="AnioDebut" Type="int" Mode="In" />
+          <Parameter Name="Nacionalidad" Type="varchar" Mode="In" />
+          <Parameter Name="filasActualizadas" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="DiscoAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Titulo" Type="varchar" Mode="In" />
+          <Parameter Name="Duracion" Type="float" Mode="In" />
+          <Parameter Name="Anio" Type="int" Mode="In" />
+          <Parameter Name="GeneroMusical" Type="varchar" Mode="In" />
+          <Parameter Name="IdDistribuidora" Type="int" Mode="In" />
+          <Parameter Name="IdArtista" Type="int" Mode="In" />
+          <Parameter Name="Disponibilidad" Type="int" Mode="In" />
+          <Parameter Name="Ventas" Type="int" Mode="In" />
+          <Parameter Name="filasInsertadas" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="DiscoDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdDisco" Type="int" Mode="In" />
+          <Parameter Name="filasElimindas" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="DiscoGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="DiscoGetById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdDisco" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DiscoUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdDisco" Type="int" Mode="In" />
+          <Parameter Name="Titulo" Type="varchar" Mode="In" />
+          <Parameter Name="Duracion" Type="float" Mode="In" />
+          <Parameter Name="Anio" Type="int" Mode="In" />
+          <Parameter Name="GeneroMusical" Type="varchar" Mode="In" />
+          <Parameter Name="IdDistribuidora" Type="int" Mode="In" />
+          <Parameter Name="IdArtista" Type="int" Mode="In" />
+          <Parameter Name="Disponibilidad" Type="int" Mode="In" />
+          <Parameter Name="Ventas" Type="int" Mode="In" />
+          <Parameter Name="filasActualizadas" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="DistribuidoraGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="IvbetoPruebaTecnicaModelStoreContainer">
+          <EntitySet Name="Artista" EntityType="Self.Artista" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Disco" EntityType="Self.Disco" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Distribuidora" EntityType="Self.Distribuidora" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Disco__IdArtista__1B0907CE" Association="Self.FK__Disco__IdArtista__1B0907CE">
+            <End Role="Artista" EntitySet="Artista" />
+            <End Role="Disco" EntitySet="Disco" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Disco__IdDistrib__1A14E395" Association="Self.FK__Disco__IdDistrib__1A14E395">
+            <End Role="Distribuidora" EntitySet="Distribuidora" />
+            <End Role="Disco" EntitySet="Disco" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IvbetoPruebaTecnicaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Distribuidora">
+          <Key>
+            <PropertyRef Name="IdDistribuidora" />
+          </Key>
+          <Property Name="IdDistribuidora" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Discoes" Relationship="IvbetoPruebaTecnicaModel.FK__Disco__IdDistrib__1A14E395" FromRole="Distribuidora" ToRole="Disco" />
+        </EntityType>
+        <EntityContainer Name="IvbetoPruebaTecnicaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Distribuidoras" EntityType="Self.Distribuidora" />
+          <EntitySet Name="Artistas" EntityType="IvbetoPruebaTecnicaModel.Artista" />
+          <EntitySet Name="Discoes" EntityType="IvbetoPruebaTecnicaModel.Disco" />
+          <AssociationSet Name="FK__Disco__IdArtista__1B0907CE" Association="IvbetoPruebaTecnicaModel.FK__Disco__IdArtista__1B0907CE">
+            <End Role="Artista" EntitySet="Artistas" />
+            <End Role="Disco" EntitySet="Discoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Disco__IdDistrib__1A14E395" Association="IvbetoPruebaTecnicaModel.FK__Disco__IdDistrib__1A14E395">
+            <End Role="Distribuidora" EntitySet="Distribuidoras" />
+            <End Role="Disco" EntitySet="Discoes" />
+          </AssociationSet>
+          <FunctionImport Name="ArtistaAdd">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="AnioDebut" Mode="In" Type="Int32" />
+            <Parameter Name="Nacionalidad" Mode="In" Type="String" />
+            <Parameter Name="filasInsertadas" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ArtistaDelete">
+            <Parameter Name="IdArtista" Mode="In" Type="Int32" />
+            <Parameter Name="filasEliminadas" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ArtistaGetAll" ReturnType="Collection(IvbetoPruebaTecnicaModel.ArtistaGetAll_Result)" />
+          <FunctionImport Name="ArtistaGetById" ReturnType="Collection(IvbetoPruebaTecnicaModel.ArtistaGetById_Result)">
+          <Parameter Name="IdArtista" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ArtistaUpdate">
+            <Parameter Name="IdArtista" Mode="In" Type="Int32" />
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="AnioDebut" Mode="In" Type="Int32" />
+            <Parameter Name="Nacionalidad" Mode="In" Type="String" />
+            <Parameter Name="filasActualizadas" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DiscoAdd">
+            <Parameter Name="Titulo" Mode="In" Type="String" />
+            <Parameter Name="Duracion" Mode="In" Type="Double" />
+            <Parameter Name="Anio" Mode="In" Type="Int32" />
+            <Parameter Name="GeneroMusical" Mode="In" Type="String" />
+            <Parameter Name="IdDistribuidora" Mode="In" Type="Int32" />
+            <Parameter Name="IdArtista" Mode="In" Type="Int32" />
+            <Parameter Name="Disponibilidad" Mode="In" Type="Int32" />
+            <Parameter Name="Ventas" Mode="In" Type="Int32" />
+            <Parameter Name="filasInsertadas" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DiscoDelete">
+            <Parameter Name="IdDisco" Mode="In" Type="Int32" />
+            <Parameter Name="filasElimindas" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DiscoUpdate">
+            <Parameter Name="IdDisco" Mode="In" Type="Int32" />
+            <Parameter Name="Titulo" Mode="In" Type="String" />
+            <Parameter Name="Duracion" Mode="In" Type="Double" />
+            <Parameter Name="Anio" Mode="In" Type="Int32" />
+            <Parameter Name="GeneroMusical" Mode="In" Type="String" />
+            <Parameter Name="IdDistribuidora" Mode="In" Type="Int32" />
+            <Parameter Name="IdArtista" Mode="In" Type="Int32" />
+            <Parameter Name="Disponibilidad" Mode="In" Type="Int32" />
+            <Parameter Name="Ventas" Mode="In" Type="Int32" />
+            <Parameter Name="filasActualizadas" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DiscoGetAll" ReturnType="Collection(IvbetoPruebaTecnicaModel.DiscoGetAll_Result)" />
+          <FunctionImport Name="DiscoGetById" ReturnType="Collection(IvbetoPruebaTecnicaModel.DiscoGetById_Result)">
+          <Parameter Name="IdDisco" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DistribuidoraGetAll" ReturnType="Collection(IvbetoPruebaTecnicaModel.DistribuidoraGetAll_Result)" />
+        </EntityContainer>
+        <EntityType Name="Artista">
+          <Key>
+            <PropertyRef Name="IdArtista" />
+          </Key>
+          <Property Name="IdArtista" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="AnioDebut" Type="Int32" />
+          <Property Name="Nacionalidad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Discoes" Relationship="IvbetoPruebaTecnicaModel.FK__Disco__IdArtista__1B0907CE" FromRole="Artista" ToRole="Disco" />
+        </EntityType>
+        <EntityType Name="Disco">
+          <Key>
+            <PropertyRef Name="IdDisco" />
+          </Key>
+          <Property Name="IdDisco" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titulo" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="Duracion" Type="Double" Nullable="false" />
+          <Property Name="Anio" Type="Int32" Nullable="false" />
+          <Property Name="GeneroMusical" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="IdDistribuidora" Type="Int32" />
+          <Property Name="IdArtista" Type="Int32" />
+          <Property Name="Disponibilidad" Type="Int32" />
+          <Property Name="Ventas" Type="Int32" />
+          <NavigationProperty Name="Artista" Relationship="IvbetoPruebaTecnicaModel.FK__Disco__IdArtista__1B0907CE" FromRole="Disco" ToRole="Artista" />
+          <NavigationProperty Name="Distribuidora" Relationship="IvbetoPruebaTecnicaModel.FK__Disco__IdDistrib__1A14E395" FromRole="Disco" ToRole="Distribuidora" />
+        </EntityType>
+        <Association Name="FK__Disco__IdArtista__1B0907CE">
+          <End Type="IvbetoPruebaTecnicaModel.Artista" Role="Artista" Multiplicity="0..1" />
+          <End Type="IvbetoPruebaTecnicaModel.Disco" Role="Disco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artista">
+              <PropertyRef Name="IdArtista" />
+            </Principal>
+            <Dependent Role="Disco">
+              <PropertyRef Name="IdArtista" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Disco__IdDistrib__1A14E395">
+          <End Type="IvbetoPruebaTecnicaModel.Distribuidora" Role="Distribuidora" Multiplicity="0..1" />
+          <End Type="IvbetoPruebaTecnicaModel.Disco" Role="Disco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Distribuidora">
+              <PropertyRef Name="IdDistribuidora" />
+            </Principal>
+            <Dependent Role="Disco">
+              <PropertyRef Name="IdDistribuidora" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="ArtistaGetAll_Result">
+          <Property Type="Int32" Name="IdArtista" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="AnioDebut" Nullable="true" />
+          <Property Type="String" Name="Nacionalidad" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ArtistaGetById_Result">
+          <Property Type="Int32" Name="IdArtista" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="AnioDebut" Nullable="true" />
+          <Property Type="String" Name="Nacionalidad" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="DiscoGetAll_Result">
+          <Property Type="Int32" Name="IdDisco" Nullable="false" />
+          <Property Type="String" Name="Titulo" Nullable="false" MaxLength="70" />
+          <Property Type="Int32" Name="Anio" Nullable="false" />
+          <Property Type="String" Name="GeneroMusical" Nullable="true" MaxLength="20" />
+          <Property Type="Double" Name="Duracion" Nullable="false" />
+          <Property Type="Int32" Name="Ventas" Nullable="true" />
+          <Property Type="Int32" Name="Disponibilidad" Nullable="true" />
+          <Property Type="Int32" Name="IdArtista" Nullable="false" />
+          <Property Type="String" Name="NombreArtista" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="IdDistribuidora" Nullable="false" />
+          <Property Type="String" Name="NombreDistribuidora" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="DiscoGetById_Result">
+          <Property Type="Int32" Name="IdDisco" Nullable="false" />
+          <Property Type="String" Name="Titulo" Nullable="false" MaxLength="70" />
+          <Property Type="Int32" Name="Anio" Nullable="false" />
+          <Property Type="String" Name="GeneroMusical" Nullable="true" MaxLength="20" />
+          <Property Type="Double" Name="Duracion" Nullable="false" />
+          <Property Type="Int32" Name="Ventas" Nullable="true" />
+          <Property Type="Int32" Name="Disponibilidad" Nullable="true" />
+          <Property Type="Int32" Name="IdArtista" Nullable="false" />
+          <Property Type="String" Name="NombreArtista" Nullable="false" MaxLength="30" />
+          <Property Type="Int32" Name="IdDistribuidora" Nullable="false" />
+          <Property Type="String" Name="NombreDistribuidora" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="DistribuidoraGetAll_Result">
+          <Property Type="Int32" Name="IdDistribuidora" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IvbetoPruebaTecnicaModelStoreContainer" CdmEntityContainer="IvbetoPruebaTecnicaEntities">
+          <EntitySetMapping Name="Distribuidoras">
+            <EntityTypeMapping TypeName="IvbetoPruebaTecnicaModel.Distribuidora">
+              <MappingFragment StoreEntitySet="Distribuidora">
+                <ScalarProperty Name="IdDistribuidora" ColumnName="IdDistribuidora" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Artistas">
+            <EntityTypeMapping TypeName="IvbetoPruebaTecnicaModel.Artista">
+              <MappingFragment StoreEntitySet="Artista">
+                <ScalarProperty Name="Nacionalidad" ColumnName="Nacionalidad" />
+                <ScalarProperty Name="AnioDebut" ColumnName="AnioDebut" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdArtista" ColumnName="IdArtista" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Discoes">
+            <EntityTypeMapping TypeName="IvbetoPruebaTecnicaModel.Disco">
+              <MappingFragment StoreEntitySet="Disco">
+                <ScalarProperty Name="Ventas" ColumnName="Ventas" />
+                <ScalarProperty Name="Disponibilidad" ColumnName="Disponibilidad" />
+                <ScalarProperty Name="IdArtista" ColumnName="IdArtista" />
+                <ScalarProperty Name="IdDistribuidora" ColumnName="IdDistribuidora" />
+                <ScalarProperty Name="GeneroMusical" ColumnName="GeneroMusical" />
+                <ScalarProperty Name="Anio" ColumnName="Anio" />
+                <ScalarProperty Name="Duracion" ColumnName="Duracion" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="IdDisco" ColumnName="IdDisco" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ArtistaAdd" FunctionName="IvbetoPruebaTecnicaModel.Store.ArtistaAdd" />
+          <FunctionImportMapping FunctionImportName="ArtistaDelete" FunctionName="IvbetoPruebaTecnicaModel.Store.ArtistaDelete" />
+          <FunctionImportMapping FunctionImportName="ArtistaGetAll" FunctionName="IvbetoPruebaTecnicaModel.Store.ArtistaGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IvbetoPruebaTecnicaModel.ArtistaGetAll_Result">
+                <ScalarProperty Name="IdArtista" ColumnName="IdArtista" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="AnioDebut" ColumnName="AnioDebut" />
+                <ScalarProperty Name="Nacionalidad" ColumnName="Nacionalidad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ArtistaGetById" FunctionName="IvbetoPruebaTecnicaModel.Store.ArtistaGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IvbetoPruebaTecnicaModel.ArtistaGetById_Result">
+                <ScalarProperty Name="IdArtista" ColumnName="IdArtista" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="AnioDebut" ColumnName="AnioDebut" />
+                <ScalarProperty Name="Nacionalidad" ColumnName="Nacionalidad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ArtistaUpdate" FunctionName="IvbetoPruebaTecnicaModel.Store.ArtistaUpdate" />
+          <FunctionImportMapping FunctionImportName="DiscoAdd" FunctionName="IvbetoPruebaTecnicaModel.Store.DiscoAdd" />
+          <FunctionImportMapping FunctionImportName="DiscoDelete" FunctionName="IvbetoPruebaTecnicaModel.Store.DiscoDelete" />
+          <FunctionImportMapping FunctionImportName="DiscoUpdate" FunctionName="IvbetoPruebaTecnicaModel.Store.DiscoUpdate" />
+          <FunctionImportMapping FunctionImportName="DiscoGetAll" FunctionName="IvbetoPruebaTecnicaModel.Store.DiscoGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IvbetoPruebaTecnicaModel.DiscoGetAll_Result">
+                <ScalarProperty Name="IdDisco" ColumnName="IdDisco" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Anio" ColumnName="Anio" />
+                <ScalarProperty Name="GeneroMusical" ColumnName="GeneroMusical" />
+                <ScalarProperty Name="Duracion" ColumnName="Duracion" />
+                <ScalarProperty Name="Ventas" ColumnName="Ventas" />
+                <ScalarProperty Name="Disponibilidad" ColumnName="Disponibilidad" />
+                <ScalarProperty Name="IdArtista" ColumnName="IdArtista" />
+                <ScalarProperty Name="NombreArtista" ColumnName="NombreArtista" />
+                <ScalarProperty Name="IdDistribuidora" ColumnName="IdDistribuidora" />
+                <ScalarProperty Name="NombreDistribuidora" ColumnName="NombreDistribuidora" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DiscoGetById" FunctionName="IvbetoPruebaTecnicaModel.Store.DiscoGetById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IvbetoPruebaTecnicaModel.DiscoGetById_Result">
+                <ScalarProperty Name="IdDisco" ColumnName="IdDisco" />
+                <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+                <ScalarProperty Name="Anio" ColumnName="Anio" />
+                <ScalarProperty Name="GeneroMusical" ColumnName="GeneroMusical" />
+                <ScalarProperty Name="Duracion" ColumnName="Duracion" />
+                <ScalarProperty Name="Ventas" ColumnName="Ventas" />
+                <ScalarProperty Name="Disponibilidad" ColumnName="Disponibilidad" />
+                <ScalarProperty Name="IdArtista" ColumnName="IdArtista" />
+                <ScalarProperty Name="NombreArtista" ColumnName="NombreArtista" />
+                <ScalarProperty Name="IdDistribuidora" ColumnName="IdDistribuidora" />
+                <ScalarProperty Name="NombreDistribuidora" ColumnName="NombreDistribuidora" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DistribuidoraGetAll" FunctionName="IvbetoPruebaTecnicaModel.Store.DistribuidoraGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IvbetoPruebaTecnicaModel.DistribuidoraGetAll_Result">
+                <ScalarProperty Name="IdDistribuidora" ColumnName="IdDistribuidora" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

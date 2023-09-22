@@ -1,0 +1,21 @@
+﻿@model ML.Artista
+@{
+    ViewBag.Title = "GetAllArtista";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Artistas Registrados</h2>
+<br />
+<br />
+<span>Lista de los Artistas registrados en el sistema</span>
+<hr />
+<br />
+@using (Html.BeginForm("GetAllArtista", "Artista", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @if (Model.Artistas != null)
+    {
+        <table>
+        </table>
+    }
+}
+
